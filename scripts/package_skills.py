@@ -9,8 +9,6 @@ For each skill folder:
 2. Packages the whole folder into:
    - <skill_name>-<version>.tar.gz
    - <skill_name>-<version>.zip
-   - <skill_name>.tar.gz
-   - <skill_name>.zip
 3. Generates SHA-256 checksums in checksums.txt
 """
 
@@ -148,15 +146,11 @@ def main() -> int:
             # Archives to generate
             tar_versioned = out_dir / f"{skill_name}-{version}.tar.gz"
             zip_versioned = out_dir / f"{skill_name}-{version}.zip"
-            tar_latest = out_dir / f"{skill_name}.tar.gz"
-            zip_latest = out_dir / f"{skill_name}.zip"
 
             package_directory_tar(staged_folder, tar_versioned, arcname=skill_name)
             package_directory_zip(staged_folder, zip_versioned, arcname=skill_name)
-            shutil.copy2(tar_versioned, tar_latest)
-            shutil.copy2(zip_versioned, zip_latest)
 
-            created_files.extend([tar_versioned, zip_versioned, tar_latest, zip_latest])
+            created_files.extend([tar_versioned, zip_versioned])
             print(f"  ✓ {skill_name}: generated {tar_versioned.name}, {zip_versioned.name}")
 
     # Write checksums

@@ -26,9 +26,9 @@ module.exports = {
       '@semantic-release/github',
       {
         assets: [
-          { path: 'dist/*.tar.gz', label: 'Tarball Package' },
-          { path: 'dist/*.zip', label: 'Zip Package' },
-          { path: 'dist/checksums.txt', label: 'SHA-256 Checksums' },
+          'dist/*.tar.gz',
+          'dist/*.zip',
+          'dist/checksums.txt',
         ],
       },
     ],
