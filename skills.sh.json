@@ -1,0 +1,15 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Scopture",
+      "description": "Recommended package to integrate your Intelligence provider with Scopture.",
+      "skills": [
+        "scopture",
+        "scopture-cli",
+        "duc"
+      ]
+    }
+  ]
+}
