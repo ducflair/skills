@@ -23,6 +23,15 @@ import tempfile
 import zipfile
 from pathlib import Path
 
+# Ensure local script directory is on sys.path for fetch_docs import
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from fetch_docs import (
+    SKILL_DOC_SOURCES,
+    fetch_and_populate_skill_docs,
+    fetch_ducpy_reference,
+    fetch_sql_reference,
+)
+
 
 def update_frontmatter_version(content: str, version: str) -> str:
     """Inject or update version strictly inside metadata block in YAML frontmatter."""
@@ -142,6 +151,51 @@ def main() -> int:
 
             if args.in_place:
                 skill_md.write_text(updated_content, encoding="utf-8")
+
+            # Automatically fetch and bundle live documentation if skill has a doc source
+            if skill_name in SKILL_DOC_SOURCES:
+                doc_url = SKILL_DOC_SOURCES[skill_name]
+                try:
+                    fetch_and_populate_skill_docs(
+                        skill_name=skill_name,
+                        base_url=doc_url,
+                        docs_dir=staged_folder / "docs",
+                    )
+                    if args.in_place:
+                        fetch_and_populate_skill_docs(
+                            skill_name=skill_name,
+                            base_url=doc_url,
+                            docs_dir=folder / "docs",
+                        )
+                except Exception as e:
+                    print(
+                        f"\n[CRITICAL ERROR] Failed to fetch documentation for skill '{skill_name}' from {doc_url}: {e}",
+                        file=sys.stderr,
+                    )
+                    print(
+                        "Aborting release build. The documentation site is unavailable or returned an error.",
+                        file=sys.stderr,
+                    )
+                    return 1
+
+            # Fetch ducpy Python reference and SQL schema reference for 'duc' skill
+            if skill_name == "duc":
+                try:
+                    fetch_ducpy_reference(staged_folder / "docs-ducpy")
+                    fetch_sql_reference(staged_folder / "docs-sql")
+                    if args.in_place:
+                        fetch_ducpy_reference(folder / "docs-ducpy")
+                        fetch_sql_reference(folder / "docs-sql")
+                except Exception as e:
+                    print(
+                        f"\n[CRITICAL ERROR] Failed to fetch ducpy/sql reference for skill 'duc': {e}",
+                        file=sys.stderr,
+                    )
+                    print(
+                        "Aborting release build. The reference site is unavailable or returned an error.",
+                        file=sys.stderr,
+                    )
+                    return 1
 
             # Archives to generate
             tar_versioned = out_dir / f"{skill_name}-{version}.tar.gz"

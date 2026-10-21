@@ -71,8 +71,8 @@ cat mutate.py | scopture run-python model.duc -
 
 > [!TIP]
 > **Cross-Skill References**
-> - **Canvas Patch & Styling Rules**: For patch semantics (`ADD`/`UPDATE`/`DELETE`), injected sandbox helpers, scientific libraries, and visual design standards, consult the **`scopture`** skill.
-> - **Programmatic Modeling & `.duc` Architecture**: For `ducpy` fluent builders, relational tables, and SQLite schema guidance, consult the **`duc`** skill.
+> - **Canvas Patch & Styling Rules**: For patch semantics (`ADD`/`UPDATE`/`DELETE`), injected sandbox helpers, scientific libraries, and visual design standards, consult the **`scopture`** skill (and its bundled `./docs/` folder).
+> - **Programmatic Modeling & `.duc` Architecture**: For `ducpy` fluent builders, relational tables, and SQLite schema guidance, consult the **`duc`** skill (and its bundled `./docs/` and `./docs-ducpy` folders).
 
 ## Diff, render, export
 

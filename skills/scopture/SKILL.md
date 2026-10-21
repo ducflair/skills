@@ -13,7 +13,7 @@ This skill focuses strictly on **live canvas synchronization**, using the **Scop
 
 > [!IMPORTANT]
 > **Code Writing API Reference**
-> To handle the .duc file or related syntax, refer to the **duc skill**.
+> To handle the .duc file or related syntax, refer to the **duc skill** (and its bundled `./docs/` folder).
 
 ---
 
@@ -22,29 +22,12 @@ This skill focuses strictly on **live canvas synchronization**, using the **Scop
 Scopture provides a full Python runtime environment that operates against the **drawing as a whole**. It is **not bound or scoped to any individual element**.
 
 * **Whole-Drawing Operations**: The runtime is not limited to an isolated element or an embedded script container. Code executes with holistic visibility over the entire drawing, able to inspect elements, compute canvas-wide layouts, coordinate alignments, manage layers and groups, and orchestrate complex multi-element assemblies (e.g., schematics, floor plans, structural grids, or multi-view mechanical drawings).
-* **Engineering & Scientific Stack**: The runtime environment includes `numpy`, `scipy`, `sympy`, `pint`, `pandas` and `matplotlib`. Use them for physical modeling, unit conversions, numerical solvers, and optimization across the canvas, then translate the calculated results directly into coordinated 2D geometry, parametric 3D models, tables, and visual annotations.
+* **Engineering & Scientific Stack**: The runtime environment includes `numpy`, `scipy`, `sympy`, `pint`, `pandas`, and `matplotlib`. Use them for physical modeling, unit conversions, numerical solvers, and optimization across the canvas, then translate the calculated results directly into coordinated 2D geometry, parametric 3D models, tables, and visual annotations.
 * **Unified Batch Generation**: A single Python execution can generate, reposition, or update dozens of elements, create layers, instantiate blocks, and update global states in one unified patch.
 * **Execution Surfaces**: This drawing-level runtime environment can be invoked via the Scopture MCP server (`run_python_code`) against an active live canvas, or headlessly via the CLI (`scopture run-python`) against local or remote `.duc` drawings.
 
 ---
 
-## Documentation Search
-
-When the relevant Scopture documentation page is unknown, search the docs with a GET request:
-
-```bash
-curl -sG 'https://site.scopture.com/api/search' --data-urlencode 'query=<search terms>'
-```
-
-The endpoint returns a JSON array of matching pages and snippets with their `url`. Use it to identify the most relevant result, then fetch and read that page for the full context; do not treat the search snippet as complete documentation. Continue to use the Duc skill for `.duc` syntax and library APIs.
-
-**Direct Markdown Output**:
-```bash
-# Fetch clean markdown directly example:
-curl -s 'https://site.scopture.com/docs/automation/agents-and-mcp'
-```
-
----
 
 ## MCP Tools vs. Python Sandbox Globals
 
